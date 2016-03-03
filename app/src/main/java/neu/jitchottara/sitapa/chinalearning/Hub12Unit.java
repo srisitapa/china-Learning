@@ -1,7 +1,9 @@
 package neu.jitchottara.sitapa.chinalearning;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ public class Hub12Unit extends AppCompatActivity {
     private ListView unit12ListView;
     private Button loadMoreButton;
     private String userChooseString;
+    private int intIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +30,23 @@ public class Hub12Unit extends AppCompatActivity {
         //Create ListView
         createListView();
 
+        //Button Controller
+        buttonController();
+
     }   //Main Method
+
+    private void buttonController() {
+        loadMoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Hub12Unit.this, HubAllUnit.class);
+                intent.putExtra("userChoose", userChooseString);
+                intent.putExtra("index", intIndex);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
 
     private void createListView() {
 
@@ -39,7 +58,7 @@ public class Hub12Unit extends AppCompatActivity {
 
     private void showView() {
         userChooseString = getIntent().getStringExtra("userChoose");
-        int intIndex = getIntent().getIntExtra("index", 0);
+        intIndex = getIntent().getIntExtra("index", 0);
         String[] showTextStrings = {"ง่าย","ปานกลาง","ยาก"};
 
         showUserChooseTextView.setText(showTextStrings[intIndex]);
