@@ -11,7 +11,7 @@ public class MyOpenHelper extends SQLiteOpenHelper{
     //Explicit ทำการประกาศตัวแปร
     public static final String database_name="China.db";
     private static final int database_version=1;
-    private static final String create_learn_table = "creae table learnTABLE (" +
+    private static final String create_learn_table = "create table learnTABLE (" +
             "_id integer primary key, " +
             "Unit text, " +
             "Level text, " +
