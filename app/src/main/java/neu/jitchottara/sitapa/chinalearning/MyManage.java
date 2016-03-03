@@ -13,7 +13,7 @@ public class MyManage {
     private MyOpenHelper myOpenHelper;
     private SQLiteDatabase writeSqLiteDatabase, readSqLiteDatabase;
 
-    public static final String learmn_table = "learnTABLE";
+    public static final String lean_table = "learnTABLE";
     public static final String column_Unit = "Unit";
     public static final String column_Level = "Level";
     public static final String column_Image = "Image";
@@ -48,7 +48,7 @@ public class MyManage {
         contentValues.put(column_Meaning,strMeaning);
         contentValues.put(column_Sound,strSound);
 
-        return writeSqLiteDatabase.insert(learmn_table,null,contentValues);
+        return writeSqLiteDatabase.insert(lean_table,null,contentValues);
     }
 
 } //Main Class
