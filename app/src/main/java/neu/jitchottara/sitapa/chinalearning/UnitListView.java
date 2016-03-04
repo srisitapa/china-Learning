@@ -40,7 +40,7 @@ public class UnitListView extends AppCompatActivity {
     private void createListView() {
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE,null);
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM learnTABLE WHERE Unit = " + "'" + unitString + "'", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM learnTABLE WHERE Unit = " + "'" + unitString + "'" + " AND Level = " + "'" + levelString + "'", null);
         cursor.moveToFirst();
 
         String[] iconStrings = new String[cursor.getCount()];
