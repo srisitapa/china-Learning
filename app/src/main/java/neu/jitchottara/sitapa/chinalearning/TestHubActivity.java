@@ -164,6 +164,10 @@ public class TestHubActivity extends AppCompatActivity {
         } else {
 
             Intent intent = new Intent(TestHubActivity.this, ScoreActivity.class);
+
+            intent.putExtra("Unit", unitString);
+            intent.putExtra("Score", scoreAnInt);
+
             startActivity(intent);
         } //if
     }
