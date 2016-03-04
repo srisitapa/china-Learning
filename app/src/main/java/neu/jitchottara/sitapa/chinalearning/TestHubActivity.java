@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -27,7 +28,7 @@ public class TestHubActivity extends AppCompatActivity {
     private String unitString;
     private String[] questionStrings, imageStrings, soundStrings, choice1Strings, choice2Strings,
             choice3Strings, choice4Strings, answerStrings;
-    private int timesAnInt = 0;
+    private int timesAnInt = 0, userChooseAnInt = 0;
 
 
     @Override
@@ -43,26 +44,64 @@ public class TestHubActivity extends AppCompatActivity {
         //Button Controller
         buttonController();
 
+        //Radion Controller
+        radioController();
+
     }   //Main Method
+
+    private void radioController() {
+        choiceRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.radioButton:
+                        userChooseAnInt = 1;
+                        break;
+                    case R.id.radioButton2:
+                        userChooseAnInt = 2;
+                        break;
+                    case R.id.radioButton3:
+                        userChooseAnInt = 3;
+                        break;
+                    case R.id.radioButton4:
+                        userChooseAnInt = 4;
+                        break;
+                    default:
+                        userChooseAnInt = 0;
+                        break;
+                }   //switch
+
+            }   //event
+        });
+
+    }   //Radion Controller
 
     private void buttonController() {
 
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                timesAnInt += 1;
-                if (timesAnInt < questionStrings.length) {
-                    changeView(timesAnInt);
-
+                if (userChooseAnInt == 0) {
+                    Toast.makeText(TestHubActivity.this,"กรุณาเลือก Choice",Toast.LENGTH_SHORT).show();
                 } else {
-
-                    Intent intent = new Intent(TestHubActivity.this, ScoreActivity.class);
-                    startActivity(intent);
+                    checkTimes();
                 } //if
 
             }   //event
         });
+    }
+
+    private void checkTimes() {
+
+        timesAnInt += 1;
+        if (timesAnInt < questionStrings.length) {
+            changeView(timesAnInt);
+
+        } else {
+
+            Intent intent = new Intent(TestHubActivity.this, ScoreActivity.class);
+            startActivity(intent);
+        } //if
     }
 
     private void showView() {
