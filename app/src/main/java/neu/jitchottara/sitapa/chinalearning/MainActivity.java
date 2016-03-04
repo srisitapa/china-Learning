@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         int intUnit = 0;
         while (intUnit <= 5) {
-
+            //
             //1. Create InputStream
             InputStream inputStream = null;
             String[] tableStrings = new String[6];
