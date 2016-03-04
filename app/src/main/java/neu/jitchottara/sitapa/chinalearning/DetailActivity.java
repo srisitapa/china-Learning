@@ -1,7 +1,10 @@
 package neu.jitchottara.sitapa.chinalearning;
 
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,7 +30,35 @@ public class DetailActivity extends AppCompatActivity {
 
         //Show View
         showView();
+
+        //Play Sound
+        playSound();
     }   //Main method
+
+    private void playSound() {
+
+        speaackerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                speackChina();
+            }   //event ถ้ามีการคลิกให้ทำงานที่นี่
+        });
+    }   //PlaySound
+
+    private void speackChina() {
+
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        try {
+            mediaPlayer.setDataSource(soundURLString);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }   //speckChina
 
     private void showView() {
         titleString = getIntent().getStringExtra("Title");
