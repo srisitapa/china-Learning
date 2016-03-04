@@ -99,9 +99,18 @@ public class TestHubActivity extends AppCompatActivity {
             scoreAnInt += 1;
             Log.d("score", "Score = " + scoreAnInt);
         }
+
+        showAnswerTrue(Integer.parseInt(answerStrings[timesAnInt]));
+
+
+
         choiceRadioGroup.clearCheck();
 
     }   //checkScore
+
+    private void showAnswerTrue(int position) {
+        //choice1ImageView.setImageResource(R.drawable.);
+    }   //showAnswerTrue
 
     private void checkTimes() {
 
