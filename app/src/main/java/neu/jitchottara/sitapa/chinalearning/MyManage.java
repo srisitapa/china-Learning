@@ -22,6 +22,19 @@ public class MyManage {
     public static final String column_Meaning = "Meaning";
     public static final String column_Sound = "Sound";
 
+    public static final String test_table = "testTABLE";
+    public static final String column_Question = "Question";
+    public static final String column_Choice1 = "Choice1";
+    public static final String column_Choice2 = "Choice2";
+    public static final String column_Choice3 = "Choice3";
+    public static final String column_Choice4 = "Choice4";
+    public static final String column_Answer = "Answer";
+
+
+    public static final String user_table = "userTABLE";
+    public static final String user_Date = "Date";
+    public static final String user_Score = "Score";
+
 
     public MyManage(Context context) {
 
@@ -31,6 +44,9 @@ public class MyManage {
         readSqLiteDatabase = myOpenHelper.getReadableDatabase();
 
     } //Constructor
+
+
+
     public long addLearn(String strUnit,
                          String strLevel,
                          String strImage,
@@ -40,15 +56,15 @@ public class MyManage {
                          String strSound) {
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(column_Unit,strUnit);
-        contentValues.put(column_Level,strLevel);
-        contentValues.put(column_Image,strImage);
-        contentValues.put(column_Vocabulary,strVocabulary);
-        contentValues.put(column_Read,strRead);
-        contentValues.put(column_Meaning,strMeaning);
-        contentValues.put(column_Sound,strSound);
+        contentValues.put(column_Unit, strUnit);
+        contentValues.put(column_Level, strLevel);
+        contentValues.put(column_Image, strImage);
+        contentValues.put(column_Vocabulary, strVocabulary);
+        contentValues.put(column_Read, strRead);
+        contentValues.put(column_Meaning, strMeaning);
+        contentValues.put(column_Sound, strSound);
 
-        return writeSqLiteDatabase.insert(lean_table,null,contentValues);
+        return writeSqLiteDatabase.insert(lean_table, null, contentValues);
     }
 
 } //Main Class
