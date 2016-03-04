@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Explicit ประกาศตัวแปร
     private MyManage myManage;
     public String[] unitStrings;
-    private Button easyButton,mediumButton, hardButton;
+    private Button easyButton, mediumButton, hardButton;
 
 
     @Override
@@ -74,16 +74,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         StrictMode.setThreadPolicy(threadPolicy);
 
         int intUnit = 0;
-        while (intUnit <= 4) {
+        while (intUnit <= 5) {
 
             //1. Create InputStream
             InputStream inputStream = null;
-            String[] tableStrings = new String[5];
+            String[] tableStrings = new String[6];
             tableStrings[0] = "http://swiftcodingthai.com/see/php_get_unit1.php";
             tableStrings[1] = "http://swiftcodingthai.com/see/php_get_unit2.php";
             tableStrings[2] = "http://swiftcodingthai.com/see/php_get_unit3.php";
             tableStrings[3] = "http://swiftcodingthai.com/see/php_get_unit4.php";
             tableStrings[4] = "http://swiftcodingthai.com/see/php_get_unit5.php";
+            tableStrings[5] = "http://swiftcodingthai.com/see/php_get_test.php";
 
             unitStrings = new String[5];
             unitStrings[0] = "บทที่ 1";
@@ -104,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 inputStream = httpEntity.getContent();
 
 
-
             } catch (Exception e) {
                 Log.d(tag, "InputStream ==>" + e.toString());
             }
@@ -113,11 +113,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //2. CreateJSON String
             String strJSON = null;
             try {
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
                 StringBuilder stringBuilder = new StringBuilder();
                 String strLine = null;
 
-                while ((strLine=bufferedReader.readLine()) != null) {
+                while ((strLine = bufferedReader.readLine()) != null) {
                     stringBuilder.append(strLine);
                 }
                 inputStream.close();
@@ -133,16 +133,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 JSONArray jsonArray = new JSONArray(strJSON);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    String strUnit = unitStrings[intUnit];
-                    String strLevel = jsonObject.getString(MyManage.column_Level);
-                    String strImage = jsonObject.getString(MyManage.column_Image);
-                    String strVocap = jsonObject.getString(MyManage.column_Vocabulary);
-                    String strRead = jsonObject.getString(MyManage.column_Read);
-                    String strMeaning = jsonObject.getString(MyManage.column_Meaning);
-                    String strSound = jsonObject.getString(MyManage.column_Sound);
 
-                    myManage.addLearn(strUnit, strLevel, strImage, strVocap, strRead,
-                            strMeaning, strSound);
+                    if (intUnit == 5) {
+                        String strUnit = jsonObject.getString(MyManage.column_Unit);
+                        String strQuestion = jsonObject.getString(MyManage.column_Question);
+                        String strImage = jsonObject.getString(MyManage.column_Image);
+                        String strSound = jsonObject.getString(MyManage.column_Sound);
+                        String strChoice1 = jsonObject.getString(MyManage.column_Choice1);
+                        String strChoice2 = jsonObject.getString(MyManage.column_Choice2);
+                        String strChoice3 = jsonObject.getString(MyManage.column_Choice3);
+                        String strChoice4 = jsonObject.getString(MyManage.column_Choice4);
+                        String strAnswer = jsonObject.getString(MyManage.column_Answer);
+
+                        myManage.addTest(strUnit, strQuestion, strImage, strSound, strChoice1, strChoice2, strChoice3, strChoice4, strAnswer);
+
+                    } else {
+                        String strUnit = unitStrings[intUnit];
+                        String strLevel = jsonObject.getString(MyManage.column_Level);
+                        String strImage = jsonObject.getString(MyManage.column_Image);
+                        String strVocap = jsonObject.getString(MyManage.column_Vocabulary);
+                        String strRead = jsonObject.getString(MyManage.column_Read);
+                        String strMeaning = jsonObject.getString(MyManage.column_Meaning);
+                        String strSound = jsonObject.getString(MyManage.column_Sound);
+
+                        myManage.addLearn(strUnit, strLevel, strImage, strVocap, strRead,
+                                strMeaning, strSound);
+
+
+                    } //if
 
                 }//for loop
 
@@ -161,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
         sqLiteDatabase.delete(MyManage.lean_table, null, null);
+        sqLiteDatabase.delete(MyManage.test_table, null, null);
     }
 
     private void testAddValue() {
@@ -170,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        String[] chooseStrings = {"Easy","Medium","Hard"};
+        String[] chooseStrings = {"Easy", "Medium", "Hard"};
         String userChoose = null;
         int intIndex = 0;
 
@@ -192,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }   //switch
 
-        Intent intent = new Intent(MainActivity.this,Hub12Unit.class);
+        Intent intent = new Intent(MainActivity.this, Hub12Unit.class);
         intent.putExtra("userChoose", userChoose);
         intent.putExtra("index", intIndex);
         startActivity(intent);
