@@ -38,7 +38,21 @@ public class UnitListView extends AppCompatActivity {
         //Create ListView
         createListView();
 
+        //Button Controller
+        buttonController();
+
     }   //Main Method
+
+    private void buttonController() {
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UnitListView.this, TestHubActivity.class);
+                intent.putExtra("Unit", unitString);
+                startActivity(intent);
+            }
+        });
+    }
 
     private void createListView() {
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
